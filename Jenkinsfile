@@ -14,9 +14,9 @@ node {
         imagePrune(CONTAINER_NAME)
     }
 
-    stage('Image Build'){
-        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
-    }
+//    stage('Image Build'){
+//        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+//    }
 
     stage('Run'){
         runApp(CONTAINER_NAME, HTTP_PORT)
