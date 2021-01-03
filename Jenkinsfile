@@ -37,7 +37,6 @@ def imageBuild(containerName, tag){
 
 def runApp(containerName, httpPORT){
 	sh "sudo docker run -d -p $httpPORT:$httpPORT $containerName"
-	sh "curl -H "Content-Type: text/plain" -d World 35.246.151.119:8090/"
     echo "Container create complete."
 }
 
