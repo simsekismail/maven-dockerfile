@@ -18,8 +18,8 @@ node {
         imageBuild(CONTAINER_NAME, CONTAINER_TAG)
     }
 
-    stage('createContainer'){
-        createContainer(CONTAINER_NAME, HTTP_PORT)
+    stage('Run'){
+        runApp(CONTAINER_NAME, HTTP_PORT)
     }
 }
 
@@ -35,7 +35,9 @@ def imageBuild(containerName, tag){
 	echo "Dockerfile build complete."
 }
 
-def createContainer(containerName, httpPORT){
+def runApp(containerName, httpPORT){
 	sh "sudo docker run -d -p $httpPORT:$httpPORT $containerName"
-	echo "Container create complete."
+	sh "curl -H "Content-Type: text/plain" -d World localhost:8090/"
+    echo "Container create complete."
 }
+
