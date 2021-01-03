@@ -10,10 +10,6 @@ node {
         env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
     }
 
-    stage('Build'){
-        sh "mvn clean install"
-    }
-
     stage('Image Prune'){
         imagePrune(CONTAINER_NAME)
     }
