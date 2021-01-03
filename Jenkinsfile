@@ -30,10 +30,10 @@ def imagePrune(containerName){
 	}catch(error){}
 }
 
-def imageBuild(containerName, tag){
-	sh "sudo docker build -t $containerName:$tag ."
-	echo "Dockerfile build complete."
-}
+//def imageBuild(containerName, tag){
+//	sh "sudo docker build -t $containerName:$tag ."
+//	echo "Dockerfile build complete."
+//}
 
 def runApp(containerName, httpPORT){
     sh "sudo docker pull ismailsimsekdev/maven-image:latest"
