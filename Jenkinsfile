@@ -37,7 +37,7 @@ def imageBuild(containerName, tag){
 
 def runApp(containerName, httpPORT){
     sh "sudo docker pull ismailsimsekdev/maven-image:latest"
-	sh "sudo docker run -d -p $httpPORT:$httpPORT --name $containerName $containerName"
+	sh "sudo docker run -d -p $httpPORT:$httpPORT --name $containerName $containerName ismailsimsekdev/maven-image:latest"
     echo "Container create complete."
 }
 
