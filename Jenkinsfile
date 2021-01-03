@@ -14,7 +14,7 @@ node {
         sh "mvn clean install"
     }
 
-    stage("Image Prune"){
+    stage('Image Prune'){
         imagePrune(CONTAINER_NAME)
     }
 
@@ -27,7 +27,7 @@ node {
     }
 }
 
-def imagePrune(ContainerName){
+def imagePrune(containerName){
 	try{
 		sh "docker image prune -f"
 		sh "docker stop $containerName"
