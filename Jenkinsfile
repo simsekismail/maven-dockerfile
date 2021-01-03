@@ -40,6 +40,6 @@ def imageBuild(containerName, tag){
 }
 
 def createContainer(containerName, httpPORT){
-	sh "docker run -d -p $httpPORT:$httpPORT" --name $containerName
+	sh "docker run -d -p $httpPORT:$httpPORT --name $containerName"
 	echo "Container create complete."
 }
