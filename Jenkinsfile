@@ -25,17 +25,17 @@ node {
 
 def imagePrune(containerName){
 	try{
-		sh "docker image prune -f"
-		sh "docker stop $containerName"
+		sh "sudo docker image prune -f"
+		sh "sudo docker stop $containerName"
 	}catch(error){}
 }
 
 def imageBuild(containerName, tag){
-	sh "docker build -t $containerName:$tag ."
+	sh "sudo docker build -t $containerName:$tag ."
 	echo "Dockerfile build complete."
 }
 
 def createContainer(containerName, httpPORT){
-	sh "docker run -d -p $httpPORT:$httpPORT --name $containerName"
+	sh "sudo docker run -d -p $httpPORT:$httpPORT --name $containerName"
 	echo "Container create complete."
 }
