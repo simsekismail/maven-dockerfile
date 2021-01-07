@@ -37,7 +37,8 @@ node {
 
 def gitClone(gitLink)
 {
-    sh "sudo git clone $gitLink"
+    
+    sh "sudo git clone $gitLink 2>/dev/null"
 }
 
 def imagePrune(containerName){
