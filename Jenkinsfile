@@ -37,8 +37,8 @@ node {
 
 def gitClone(gitLink)
 {
-    
-    sh "sudo git clone $gitLink 2>/dev/null"
+    sh "sudo rm -rf maven-dockerfile"
+    sh "sudo git clone $gitLink"
 }
 
 def imagePrune(containerName){
