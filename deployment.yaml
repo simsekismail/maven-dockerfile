@@ -1,12 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-pipeline
-  labels:
-    name: jenkins-pipeline
+name: jenkins-pipeline
+labels:
+  app: jenkins-pipeline
+spec:
+strategy:
+  type: Recreate
+template:
+  metadata:
+    labels:
+      app: jenkins-pipeline
+      tier: jenkins-pipeline
   spec:
-  containers:
-  - name: jenkins-pipeline
-    image: ismalsimsekdev/jenkins-pipeline
-    ports:
+    containers:
+    - name: jenkins-pipeline
+      image: ismailsimsekdev/jenkins-pipeline
+      imagePullPolicy: Always
+      ports:
       - containerPort: 8090
+        name: jenkins-pipeline
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+name: jenkins-pipeline
+labels:
+  app: jenkins-pipeline
+spec:
+ports:
+  - port: 8090
+    targetPort: 8090
+selector:
+  app: jenkins-pipeline
+  tier: jenkins-pipeline
+type: LoadBalancer
