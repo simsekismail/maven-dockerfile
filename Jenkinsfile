@@ -2,15 +2,12 @@ def CONTAINER_NAME="jenkins-pipeline"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="ismailsimsekdev"
 def HTTP_PORT="8090"
+def PROJECT_ID = "constant-setup-300113"
+def CLUSTER_NAME = "my-first-cluster-1"
+def LOCATION = "europe-west3-c"
+def CREDENTIALS_ID = "gke"
 
 node {
-    
-    environment {
-        PROJECT_ID = 'constant-setup-300113'
-        CLUSTER_NAME = 'my-first-cluster-1'
-        LOCATION = 'europe-west3-c'
-        CREDENTIALS_ID = 'gke'
-    }
 
     stage('Initialize'){
         def dockerHome = tool 'myDocker'
