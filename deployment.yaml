@@ -2,8 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
 name: jenkins-pipeline
+labels:
+  app: jenkins-pipeline
 spec:
-containers:
+strategy:
+  type: Recreate
+template:
+  metadata:
+    labels:
+      app: jenkins-pipeline
+      tier: jenkins-pipeline
+  spec:
+    containers:
     - name: jenkins-pipeline
       image: ismailsimsekdev/jenkins-pipeline
       imagePullPolicy: Always

@@ -5,6 +5,13 @@ def HTTP_PORT="8090"
 
 node {
 
+    environment {
+        PROJECT_ID = 'constant-setup-300113'
+        CLUSTER_NAME = 'cluster-1'
+        LOCATION = 'europe-west3-c'
+        CREDENTIALS_ID = 'gke'
+    }
+
     stage('Initialize'){
         def dockerHome = tool 'myDocker'
         def mavenHome  = tool 'myMaven'
@@ -32,6 +39,13 @@ node {
     stage('Run'){
         runApp(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, HTTP_PORT)
     }
+
+    stage('Deploy to GKE') {
+            steps{
+                //sh "sed -i 's/jenkins-pipeline:latest/jenkinspipeline:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
 }
 
 def gitClone()
