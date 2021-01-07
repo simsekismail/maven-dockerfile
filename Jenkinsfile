@@ -4,7 +4,7 @@ def DOCKER_HUB_USER="ismailsimsekdev"
 def HTTP_PORT="8090"
 
 node {
-    agent any
+    
     environment {
         PROJECT_ID = 'constant-setup-300113'
         CLUSTER_NAME = 'my-first-cluster-1'
