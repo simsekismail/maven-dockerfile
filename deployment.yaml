@@ -4,15 +4,6 @@ metadata:
   name: jenkins-pipeline
   labels:
     name: jenkins-pipeline
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: jenkins-pipeline
-  template:
-    metadata:
-      labels:
-        app: jenkins-pipeline
   spec:
   containers:
   - name: jenkins-pipeline
