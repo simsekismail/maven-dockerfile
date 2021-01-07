@@ -1,5 +1,7 @@
 def CONTAINER_NAME="jenkins-pipeline"
 def CONTAINER_TAG="latest"
+def DOCKER_HUB_USER="ismailsimsekdev"
+def GIT_LİNK="https://github.com/simsekismail/maven-dockerfile.git"
 def HTTP_PORT="8090"
 
 node {
@@ -10,17 +12,32 @@ node {
         env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
     }
 
+    stage('Git Clone'){
+        gitClone(GIT_LİNK)
+    }
+
     stage('Image Prune'){
         imagePrune(CONTAINER_NAME)
     }
 
-//    stage('Image Build'){
-//        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
-//    }
+    stage('Image Build'){
+        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+    }
+
+    stage('Push to Docker Registry'){
+        withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
+        }
+    }
 
     stage('Run'){
-        runApp(CONTAINER_NAME, HTTP_PORT)
+        runApp(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, HTTP_PORT)
     }
+}
+
+def gitClone(gitLink)
+{
+    sh "sudo git clone $gitLink"
 }
 
 def imagePrune(containerName){
@@ -30,14 +47,21 @@ def imagePrune(containerName){
 	}catch(error){}
 }
 
-//def imageBuild(containerName, tag){
-//	sh "sudo docker build -t $containerName:$tag ."
-//	echo "Dockerfile build complete."
-//}
+def imageBuild(containerName, tag){
+	sh "sudo docker build -t $containerName:$tag /home/ismailsimsekdev/maven-dockerfile"
+	echo "Dockerfile build complete."
+}
 
-def runApp(containerName, httpPORT){
-    sh "sudo docker pull ismailsimsekdev/maven-image:latest"
-	sh "sudo docker run -d -p $httpPORT:$httpPORT --name $containerName ismailsimsekdev/maven-image:latest"
+def pushToImage(containerName, tag, dockerUser, dockerPassword){
+    sh "docker login -u $dockerUser -p $dockerPassword"
+    //sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
+    sh "docker push $dockerUser/$containerName:$tag"
+    echo "Image push complete"
+}
+
+def runApp(containerName, tag, dockerHubUser, httpPORT){
+    sh "sudo docker pull $dockerHubUser/$containerName"
+	sh "sudo docker run -d -p $httpPORT:$httpPORT --name $containerName $dockerHubUser/$containerName:$tag"
     echo "Container create complete."
 }
 
