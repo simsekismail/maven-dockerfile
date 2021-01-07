@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: jenkins-pipeline
+  labels:
+    name: jenkins-pipeline
+spec:
+  containers:
+  - name: jenkins-pipeline
+    image: ismalsimsekdev/jenkins-pipeline
+    ports:
+      - containerPort: 8090

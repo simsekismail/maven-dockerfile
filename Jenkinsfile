@@ -62,7 +62,7 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
 
 def runApp(containerName, tag, dockerHubUser, httpPORT){
     sh "sudo docker pull $dockerHubUser/$containerName"
-	sh "sudo docker run -d -p $httpPORT:$httpPORT --name $containerName $dockerHubUser/$containerName:$tag"
+	sh "sudo kubectl apply -f gcloud container clusters get-credentials cluster-1 --zone europe-west3-c --project constant-setup-300113"
     echo "Container create complete."
 }
 
