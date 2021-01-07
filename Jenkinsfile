@@ -9,12 +9,6 @@ def CREDENTIALS_ID = "gke"
 
 node {
 
-    stage("Checkout code") {
-            steps {
-                checkout scm
-            }
-        }
-
     stage('Initialize'){
         def dockerHome = tool 'myDocker'
         def mavenHome  = tool 'myMaven'
@@ -45,7 +39,7 @@ node {
 
     stage('Deploy to GKE') {
             steps{
-                step([$class: "KubernetesEngineBuilder", projectId: "constant-setup-300113", clusterName: "my-first-cluster-1", location: "europe-west3-c", manifestPattern: '/var/lib/jenkins/workspace/case-pipeline/maven-dockerfile/deployment.yaml', credentialsId: "gke", verifyDeployments: true])
+                step([$class: "KubernetesEngineBuilder", projectId: "constant-setup-300113", clusterName: "my-first-cluster-1", location: "europe-west3-c", manifestPattern: "deployment.yaml", credentialsId: "gke", verifyDeployments: true])
             }
         }
 }
