@@ -1,7 +1,6 @@
 def CONTAINER_NAME="jenkins-pipeline"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="ismailsimsekdev"
-def GIT_LİNK="https://github.com/simsekismail/maven-dockerfile.git"
 def HTTP_PORT="8090"
 
 node {
@@ -13,7 +12,7 @@ node {
     }
 
     stage('Git Clone'){
-        gitClone(GIT_LİNK)
+        gitClone()
     }
 
     stage('Image Prune'){
@@ -35,10 +34,10 @@ node {
     }
 }
 
-def gitClone(gitLink)
+def gitClone()
 {
-    sh "sudo rm -rf maven-dockerfile"
-    sh "sudo git clone $gitLink"
+    //sh "sudo rm -rf maven-dockerfile"
+    sh "sudo git clone https://github.com/simsekismail/maven-dockerfile.git"
 }
 
 def imagePrune(containerName){
