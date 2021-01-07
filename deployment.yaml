@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: maven-dockerfile
+name: jenkins-pipeline
 labels:
-  app: maven-dockerfile
+  app: jenkins-pipeline
 spec:
 strategy:
   type: Recreate
 template:
   metadata:
     labels:
-      app: maven-dockerfile
-      tier: maven-dockerfile
+      app: jenkins-pipeline
+      tier: jenkins-pipeline
   spec:
     containers:
     - name: jenkins-pipeline
@@ -25,14 +25,14 @@ template:
 apiVersion: v1
 kind: Service
 metadata:
-name: maven-dockerfile
+name: jenkins-pipeline
 labels:
-  app: maven-dockerfile
+  app: jenkins-pipeline
 spec:
 ports:
   - port: 8090
     targetPort: 8090
 selector:
-  app: maven-dockerfile
-  tier: maven-dockerfile
+  app: jenkins-pipeline
+  tier: jenkins-pipeline
 type: LoadBalancer
