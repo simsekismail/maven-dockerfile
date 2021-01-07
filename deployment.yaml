@@ -4,14 +4,6 @@ metadata:
 name: jenkins-pipeline
 labels:
   app: jenkins-pipeline
-spec:
-strategy:
-  type: Recreate
-template:
-  metadata:
-    labels:
-      app: jenkins-pipeline
-      tier: jenkins-pipeline
   spec:
     containers:
     - name: jenkins-pipeline
