@@ -36,7 +36,7 @@ node {
 
 def gitClone()
 {
-    //sh "sudo rm -rf maven-dockerfile"
+    sh "sudo rm -rf maven-dockerfile"
     sh "sudo git clone https://github.com/simsekismail/maven-dockerfile.git"
 }
 
