@@ -4,10 +4,10 @@ def DOCKER_HUB_USER="ismailsimsekdev"
 def HTTP_PORT="8090"
 
 node {
-
+    agent any
     environment {
         PROJECT_ID = 'constant-setup-300113'
-        CLUSTER_NAME = 'cluster-1'
+        CLUSTER_NAME = 'my-first-cluster-1'
         LOCATION = 'europe-west3-c'
         CREDENTIALS_ID = 'gke'
     }
@@ -43,7 +43,7 @@ node {
     stage('Deploy to GKE') {
             steps{
                 //sh "sed -i 's/jenkins-pipeline:latest/jenkinspipeline:${env.BUILD_ID}/g' deployment.yaml"
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: './maven-dockerfile/deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
 }
@@ -62,7 +62,7 @@ def imagePrune(containerName){
 }
 
 def imageBuild(containerName, tag){
-	sh "sudo docker build -t $containerName:$tag /home/ismailsimsekdev/maven-dockerfile"
+	sh "sudo docker build -t $containerName:$tag ./maven-dockerfile"
 	echo "Dockerfile build complete."
 }
 
