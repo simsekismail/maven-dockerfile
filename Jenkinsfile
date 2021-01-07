@@ -40,7 +40,7 @@ node {
     stage('Deploy to GKE') {
             steps{
                 //sh "sed -i 's/jenkins-pipeline:latest/jenkinspipeline:${env.BUILD_ID}/g' deployment.yaml"
-                step([$class: 'KubernetesEngineBuilder', projectId: PROJECT_ID, clusterName: CLUSTER_NAME, location: LOCATION, manifestPattern: 'deployment.yaml', credentialsId: CREDENTIALS_ID, verifyDeployments: true])
+                step([$class: 'KubernetesEngineBuilder', projectId: "constant-setup-300113", clusterName: "my-first-cluster-1", location: "europe-west3-c", manifestPattern: './deployment.yaml', credentialsId: "gke", verifyDeployments: true])
             }
         }
 }
