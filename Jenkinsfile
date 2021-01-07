@@ -62,7 +62,7 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
 def runApp(containerName, tag, dockerHubUser, httpPORT){
     sh "sudo docker pull $dockerHubUser/$containerName"
     sh "sudo gcloud container clusters get-credentials cluster-1 --zone europe-west3-c --project constant-setup-300113"
-	sh "sudo kubectl apply -f deployment.yaml"
+	sh "sudo kubectl apply -f /home/ismailsimsekdev/maven-dockerfile/deployment.yaml"
     echo "Container create complete."
 }
 
