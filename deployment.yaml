@@ -15,7 +15,7 @@ template:
   spec:
     containers:
     - name: jenkins-pipeline
-      image: ismailsimsekdev/jenkins-pipeline
+      image: ismailsimsekdev/jenkins-pipeline:latest
       imagePullPolicy: Always
       ports:
       - containerPort: 8090
