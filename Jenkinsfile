@@ -46,6 +46,7 @@ node {
     stage('Deploy to GKE') {
             steps{
                 //sh "sed -i 's/jenkins-pipeline:latest/jenkinspipeline:${env.BUILD_ID}/g' deployment.yaml"
+                sh "git https://github.com/simsekismail/maven-dockerfile.git"
                 step([$class: 'KubernetesEngineBuilder', projectId: "constant-setup-300113", clusterName: "my-first-cluster-1", location: "europe-west3-c", manifestPattern: 'deployment.yaml', credentialsId: "gke", verifyDeployments: true])
             }
         }
